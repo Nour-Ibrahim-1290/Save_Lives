@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'save_lives',
     'rest_framework',
-    'frontend'
+    'frontend',
+    'users'
 ]
 
 MIDDLEWARE = [
