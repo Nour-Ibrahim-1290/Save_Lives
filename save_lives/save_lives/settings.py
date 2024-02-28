@@ -87,12 +87,40 @@ WSGI_APPLICATION = 'save_lives.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'save_lives',
+        'USER': 'save_lives_write',  # Use the write user for writes
+        'PASSWORD': 'save_lives@Ahmed#Nour',
+        'HOST': '100.26.11.29',  # Master's IP
+        'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    },
+    'slave': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'save_lives',
+        'USER': 'save_lives_read',  # Use the read user for reads
+        'PASSWORD': 'save_lives@Ahmed#Nour',
+        'HOST': '18.204.20.248',  # Slave's IP
+        'PORT': '3306',  # Replace with your actual MySQL port
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
+    },
 }
+
+
+DATABASE_ROUTERS = ['save_lives.routers.DatabaseRouter']
 
 
 # Password validation
