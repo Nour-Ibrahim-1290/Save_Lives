@@ -106,7 +106,7 @@ DATABASES = {
             'charset': 'utf8mb4',
         },
     },
-    'slave': {
+    'replica': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'save_lives',
         'USER': 'save_lives_read',  # Use the read user for reads
@@ -119,8 +119,9 @@ DATABASES = {
     },
 }
 
+USE_REPLICA_DATABASE = True
 
-DATABASE_ROUTERS = ['save_lives.routers.DatabaseRouter']
+DATABASE_ROUTERS = ['save_lives.routers.ReplicaRouter']
 
 
 # Password validation
