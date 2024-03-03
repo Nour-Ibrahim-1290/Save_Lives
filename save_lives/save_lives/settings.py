@@ -131,6 +131,9 @@ DATABASES = {
         'PASSWORD': 'save_lives@Ahmed#Nour',
         'HOST': '18.204.20.248',  # Slave's IP
         'PORT': '3306',  # Replace with your actual MySQL port
+        'TEST': {
+            'MIRROR': 'default',
+        },
         'OPTIONS': {
             'charset': 'utf8mb4',
         },
