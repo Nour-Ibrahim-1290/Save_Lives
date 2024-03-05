@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'save_lives',
     'frontend',
-    'users'
+    'users',
+    'contact'
 ]
 
 # Settings for auth backends
@@ -56,10 +57,11 @@ AUTHENTICATION_BACKENDS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
+        'rest_framework.authentication.TokenAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 
@@ -195,3 +197,18 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+
+# Email settings
+## Primary
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'savelivesbuisness@gmail.com'
+EMAIL_HOST_PASSWORD = 'mook ouhq yber yycf'
+## Testing
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST_USER = 'localhost'
+# EMAIL_PORT = 1025

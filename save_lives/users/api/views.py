@@ -6,8 +6,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import User
 from .serializers import UserSerializer
 
-from django.contrib.auth.hashers import check_password
-
 
 def generate_tokens(user):
     """
@@ -57,7 +55,7 @@ class LoginView(APIView):
         except User.DoesNotExist:
             return Response({'error': 'Invalid Username'}, status=status.HTTP_401_UNAUTHORIZED)
         
-        if check_password(password, user.password):
+        if user.check_password(password):
             response_data = generate_tokens(user)
             return Response(response_data, status=status.HTTP_200_OK)
         else:
