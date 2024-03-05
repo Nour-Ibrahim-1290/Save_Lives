@@ -33,11 +33,18 @@ class User(AbstractBaseUser):
         ('receiver', 'receiver'),
     )
 
-    name = models.CharField(max_length=255, unique=True)
-    password = models.CharField(max_length=255)
+    ACCOUNT_STATE_CHOICES = (
+        ('initial', 'Initial'),
+        ('completed', 'Completed'),
+    )
+
+    name = models.CharField(max_length=255, unique=True, null=False)
+    email = models.EmailField(max_length=255, unique=True, null=False)
+    password = models.CharField(max_length=255, null=False)
     age = models.IntegerField(null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
-    user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES)
+    user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, null=False)
+    account_state = models.CharField(max_length=255, choices=ACCOUNT_STATE_CHOICES, default='initial')
 
     objects = MyUserManager()
 
