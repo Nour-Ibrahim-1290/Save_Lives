@@ -65,6 +65,8 @@ class Donor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # add any additional fields for Donor here
 
+
+
 class Receiver(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # add any additional fields for Receiver here
