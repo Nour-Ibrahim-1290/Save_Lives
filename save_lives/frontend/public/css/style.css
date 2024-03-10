@@ -97,6 +97,7 @@ hr {
   border-radius: 0;
   margin: 9px 35px 0;
 }
+
 #menu.navbar-default .navbar-nav > li > a:after {
   display: block;
   position: absolute;
@@ -204,6 +205,7 @@ a:focus,
   outline: none;
   outline-offset: none;
 }
+
 /* Header Section */
 .intro {
   display: table;
@@ -245,6 +247,7 @@ header .intro-text {
   padding-bottom: 200px;
   text-align: center;
 }
+
 /* Features Section */
 #features {
   background: #f6f6f6;
@@ -261,6 +264,7 @@ header .intro-text {
   background-image: linear-gradient(to right, #ff0000 0%, #ff6347 100%);
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
 }
+
 /* About Section */
 #about {
   padding: 100px 0;
