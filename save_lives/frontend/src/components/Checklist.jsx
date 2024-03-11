@@ -1,5 +1,11 @@
 import { Image } from "./image";
 import React from "react";
+import "../style/css/style.css";
+import "../style/css/bootstrap.css";
+import "../style/fonts/font-awesome/css/font-awesome.css";
+import "../style/css/nivo-lightbox/nivo-lightbox.css";
+import "../style/css/nivo-lightbox/default.css";
+
 
 export const Checklist = (props) => {
   return (

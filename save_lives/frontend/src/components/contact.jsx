@@ -1,6 +1,11 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import React from "react";
+import "../style/css/style.css";
+import "../style/css/bootstrap.css";
+import "../style/fonts/font-awesome/css/font-awesome.css";
+import "../style/css/nivo-lightbox/nivo-lightbox.css";
+import "../style/css/nivo-lightbox/default.css";
 
 const initialState = {
   name: "",
@@ -158,9 +163,9 @@ export const Contact = (props) => {
       <div id="footer">
         <div className="container text-center">
           <p>
-            &copy; 2023 Issaaf Kattan React Land Page Template. Design by{" "}
-            <a href="http://www.templatewire.com" rel="nofollow">
-              TemplateWire
+            &copy; 2024 Save Lives Platform Developed by {" "}
+            <a href={`mailto:${props.data ? props.data.email : ""}`}>
+              MBS-Team
             </a>
           </p>
         </div>

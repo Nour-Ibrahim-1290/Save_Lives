@@ -1,4 +1,11 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import "../style/css/style.css";
+import "../style/css/bootstrap.css";
+import "../style/fonts/font-awesome/css/font-awesome.css";
+import "../style/css/nivo-lightbox/nivo-lightbox.css";
+import "../style/css/nivo-lightbox/default.css";
 
 export const Navigation = (props) => {
   return (
@@ -17,9 +24,9 @@ export const Navigation = (props) => {
             <span className="icon-bar"></span>{" "}
             <span className="icon-bar"></span>{" "}
           </button>
-          <a className="navbar-brand page-scroll" href="#page-top" style={{color: '#ff2222'}}>
+          <Link className="navbar-brand page-scroll" to="/#header" style={{color: '#ff2222'}}>
             Save Lives
-          </a>{" "}
+          </Link>{" "}
         </div>
 
         <div
@@ -28,24 +35,24 @@ export const Navigation = (props) => {
         >
           <ul className="nav navbar-nav navbar-right">
             <li>
-              <a href="#features" className="page-scroll">
+              <HashLink to="/#features" className="page-scroll">
                 Features
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#about" className="page-scroll">
+              <HashLink to="/#about" className="page-scroll">
                 About
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#benefits" className="page-scroll">
+              <HashLink to="/#benefits" className="page-scroll">
                 Benefits
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#checklist" className="page-scroll">
+              <HashLink to="/#checklist" className="page-scroll">
                 Checklist
-              </a>
+              </HashLink>
             </li>
             {/* <li>
               <a href="#testimonials" className="page-scroll">
@@ -58,14 +65,16 @@ export const Navigation = (props) => {
               </a>
             </li> */}
             <li>
-              <a href="#contact" className="page-scroll">
+              <HashLink to="/#contact" className="page-scroll">
                 Contact
-              </a>
+              </HashLink>
             </li>
             <li>
-              <a href="#contact" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
-                Login
-              </a>
+              
+            <Link to="/login" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+              Login
+            </Link>
+              
             </li>
             <li>
               <a href="#contact" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
