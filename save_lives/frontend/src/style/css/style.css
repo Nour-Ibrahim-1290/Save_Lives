@@ -264,6 +264,7 @@ header .intro-text {
   background: #f6f6f6;
 }
 
+
 #features i.fa {
   font-size: 38px;
   margin-bottom: 20px;
@@ -619,7 +620,8 @@ label {
 }
 
 
-#log {
+#log,
+#signd {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -628,13 +630,76 @@ label {
   width: 85vh;
 }
 
-#log .btn-custom {
+#log h2,
+#signstart h2 {
+  color: #000;
+}
+
+#log .btn-custom,
+#signd .btn-custom {
   width: 54vh;
   border-radius: 10px !important;
 }
 
+
+#signstart,
+#signri {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  height: 90vh;
+  width: 115vh;
+}
+
+
+#signstart .btn-custom {
+  font-size: 28px;
+  font-weight: 600;
+  width: 25vh;
+  height: 10vh;
+  border-radius: 10px !important;
+  background-image: linear-gradient(to right, #ff0000 0%, #ff6347 100%);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  white-space: normal;
+}
+
+#signstart .btn-custom:hover,
+#signri .btn-custom:hover {
+  border: 2px solid #ff0000;
+  color: #ff0000;
+  background-color: #fff;
+  background-image: none;
+}
+
+#signstart .center-divs,
+#signri .center-divs {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+#signri .btn-custom {
+  font-size: 24px;
+  font-weight: 600;
+  width: 33vh;
+  height: 15vh;
+  border-radius: 10px !important;
+  background-image: linear-gradient(to right, #ff0000 0%, #ff6347 100%);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  white-space: normal;
+}
+
+
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;
+  }
+
+  #log,
+  #signstart,
+  #signri {
+    width: 54vh;
   }
 }

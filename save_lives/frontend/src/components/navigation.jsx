@@ -54,16 +54,6 @@ export const Navigation = (props) => {
                 Checklist
               </HashLink>
             </li>
-            {/* <li>
-              <a href="#testimonials" className="page-scroll">
-                Testimonials
-              </a>
-            </li> */}
-            {/* <li>
-              <a href="#resources" className="page-scroll">
-                Resources
-              </a>
-            </li> */}
             <li>
               <HashLink to="/#contact" className="page-scroll">
                 Contact
@@ -77,9 +67,9 @@ export const Navigation = (props) => {
               
             </li>
             <li>
-              <a href="#contact" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+              <Link to="/signstart" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
                 Join us
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
