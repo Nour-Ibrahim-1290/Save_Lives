@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import emailjs from "emailjs-com";
+import axios from 'axios';
+import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 
 import "../style/css/style.css";
@@ -9,39 +10,56 @@ import "../style/css/nivo-lightbox/nivo-lightbox.css";
 import "../style/css/nivo-lightbox/default.css";
 
 
+
 const initialState = {
-  name: "",
   email: "",
-  message: "",
+  password: "",
 };
 
+const validationSchema = yup.object({
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string('Enter your password')
+    .min(8, 'Password should be of minimum 8 characters length')
+    .required('Password is required'),
+});
+
+const sendLoginRequest = async (email, password) => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/users/login/', {
+      email,
+      password
+    });
+
+    return response.data; // this will be { token, sessionId } if successful
+  } catch (error) {
+    console.error(error);
+    return { error: error.message };
+  }
+};
 
 export const LoginForm = (props) => {
-
-
-  const [{ name, email, message }, setState] = useState(initialState);
+  const [{ email, password }, setState] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
-  const clearState = () => setState({ ...initialState });
-  
-  
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
+    console.log("Inside HandleChange");
+    console.log(e);
     e.preventDefault();
-    console.log(name, email, message);
-    emailjs
-    .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_PUBLIC_KEY")
-    .then(
-      (result) => {
-        console.log(result.text);
-        clearState();
-      },
-      (error) => {
-        console.log(error.text);
-      }
-    );
+    const isValid = await validationSchema.isValid({ email, password });
+    if (isValid) {
+      const response = await sendLoginRequest(email, password);
+      console.log(response);
+    } else {
+      console.log('Invalid form submission');
+    }
   };
 
   return (
@@ -51,7 +69,7 @@ export const LoginForm = (props) => {
         <div className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
           <h2>Login</h2>
           <p>
-          Enter your email below to login to your account.
+             Enter your email below to login to your account.
           </p>
         </div>
         <form name="sentMessage" validate onSubmit={handleSubmit}>
@@ -59,11 +77,11 @@ export const LoginForm = (props) => {
             <div className="col-md-12">
               <div className="form-group">
                 <input
-                  type="text"
-                  id="name"
-                  name="name"
+                  type="email"
+                  id="email"
+                  name="email"
                   className="form-control"
-                  placeholder="Name"
+                  placeholder="Email"
                   required
                   onChange={handleChange}
                 />
@@ -71,11 +89,11 @@ export const LoginForm = (props) => {
               </div>
               <div className="form-group">
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
+                  type="password"
+                  id="password"
+                  name="password"
                   className="form-control"
-                  placeholder="Email"
+                  placeholder="Password"
                   required
                   onChange={handleChange}
                 />
@@ -90,9 +108,9 @@ export const LoginForm = (props) => {
         </form>
         <div className="mt-4 text-center text-sm">
           Don't have an account?
-          <a className="underline" href="#" style={{ marginLeft: '10px' }}>
+          <Link className="underline" to="/signstart" style={{ marginLeft: '10px' }}>
             Sign up
-          </a>
+          </Link>
         </div>
       </div>
     </div>
