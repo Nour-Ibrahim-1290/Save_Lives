@@ -1,0 +1,197 @@
+{
+  "Header": {
+    "title": "Save Lives",
+    "paragraph": "Blood donation Platform built to connect those in need of help to those who are able and willing to help."
+  },
+  "About": {
+    "paragraph1": "A Liter of Blood could dictate the life and death of a patient in need, In our community as long as many others, a patient in need of blood that isn’t existent in the local blood bank of the hospital he’s admitted in will wait until either his family members find a donor or a response from specialized blood banks comeback to the hospital with his type.",
+    "paragraph2": "Which is not a problem if the communication channel for those major banks is critical and agile. Or your blood type is one of the most common in mankind.",
+    "paragraph3": "In Africa, a lot of hospitals don't even have a local blood bank to serve its patients which means that the life of the patient is dependent on the chance of finding someone willing and matching to donate blood for him. This chance is very slim, and even slimmer for those with little pool of options due to the spread of their blood-type in humanity.",
+    "Why": [
+      "Connect donors to recievers.",
+      "Intiate alerts to matching donors.",
+      "Preserve donors and recievers data.",
+      "Active alerts to both parties when needed."
+    ],
+    "Why2": [
+      "Medical Information Hub.",
+      "Active Community",
+      "Facilitating meetings if needed.",
+      "Educate Blood donation importance."
+    ]
+  },
+  "Checklist": [
+    {
+      "title": "Non-Diabetic",
+      "largeImage": "img/checklist/01_large.jpg",
+      "smallImage": "img/checklist/01_small.jpg"
+    },
+    {
+      "title": "No Heart Conditions",
+      "largeImage": "img/checklist/02_large.jpg",
+      "smallImage": "img/checklist/02_small.jpg"
+    },
+    {
+      "title": "Weight more than 50kg",
+      "largeImage": "img/checklist/03_large.jpg",
+      "smallImage": "img/checklist/03_small.jpg"
+    },
+    {
+      "title": "No Blood Pressure",
+      "largeImage": "img/checklist/04_large.jpg",
+      "smallImage": "img/checklist/04_small.jpg"
+    },
+    {
+      "title": "No Anemia",
+      "largeImage": "img/checklist/05_large.jpg",
+      "smallImage": "img/checklist/05_small.jpg"
+    },
+    {
+      "title": "No Kidney Condition",
+      "largeImage": "img/checklist/06_large.jpg",
+      "smallImage": "img/checklist/06_small.jpg"
+    },
+    {
+      "title": "No AIDS",
+      "largeImage": "img/checklist/07_large.jpg",
+      "smallImage": "img/checklist/07_small.jpg"
+    },
+    {
+      "title": "No HiB A, B, or C",
+      "largeImage": "img/checklist/08_large.jpg",
+      "smallImage": "img/checklist/08_small.jpg"
+    },
+    {
+      "title": "Checked Negative for COVID",
+      "largeImage": "img/checklist/09_large.jpg",
+      "smallImage": "img/checklist/09_small.jpg"
+    }
+  ],
+  "Benefits": [
+    {
+      "icon": "fa fa-heart",
+      "name": "The Gift of Life",
+      "text": "Blood donation isn't just an act – it's a gift of life with the power to save up to three people. Your donation provides vital support in times of crisis, offering a lifeline to those in desperate need."
+    },
+    {
+      "icon": "fa fa-heartbeat",
+      "name": "A Boost for Your Heart",
+      "text": "Regular blood donation can benefit your own health, potentially reducing the viscosity of your blood for improved flow and lowering the risk of heart attacks and strokes. It also helps maintain healthy iron levels, vital for overall health."
+    },
+    {
+      "icon": "fa fa-user-md",
+      "name": "A Free Health Check",
+      "text": "The pre-donation screening includes a check of your blood pressure, pulse, temperature, and hemoglobin. This mini-physical offers a quick snapshot of your health, potentially highlighting any areas that need further attention."
+    },
+    {
+      "icon": "fa fa-search",
+      "name": "Early Detection",
+      "text": "Donated blood is rigorously tested for various infectious diseases. This not only protects the blood supply but offers you, the donor, an early warning system. If anything is detected, you'll be notified for timely medical follow-up."
+    },
+    {
+      "icon": "fa fa-plus-square",
+      "name": "Revitalize Your Blood",
+      "text": "Donating blood triggers your body to produce fresh, new blood cells. This rejuvenation enhances oxygen and nutrient circulation in your body, potentially contributing to increased energy levels and overall well-being."
+    },
+    {
+      "icon": "fa fa-pie-chart",
+      "name": "Reducing Risk",
+      "text": "Studies suggest a possible connection between regular blood donation and a lower risk of developing certain types of cancer. Donating helps maintain balanced iron levels, and excess iron has been linked to increased cancer risk."
+    }
+  ],
+  "Expectations": [
+    {
+      "text": "Save Lives is a safe place to facilitate the connection between those who are able and willing to donate their blood and those who are in need of blood donation.",
+      "type": "Live"
+    },
+    {
+      "text": "We're working on a verification system for recievers information to validate their status before allowing them to ask for donation.",
+      "type": "In Progress"
+    },
+    {
+      "text": "We're working on a Knowledge hub levraging AI to enable you to know more about Health care, Blood donations and the importance of it.",
+      "type": "In Progress"
+    },
+    {
+      "text": "We've took into consideration different blood types and which bllod type is suitable for which reciever in our filtering systems.",
+      "type": "Live"
+    },
+    {
+      "text": "We're working on a community to converse with similar conditions people while keeping your privacy intaced.",
+      "type": "In Progress"
+    },
+    {
+      "text": "We're working on a geo solution that will alert those who are closer to you and really able to reach in case of emergency.",
+      "type": "In Progress"
+    },
+    {
+      "text": "We're Securing you're data and keeping you're privacy, whether you're a donor or a reciever you're data is avilable on a need to know basis only.",
+      "type": "Live"
+    },
+    {
+      "text": "We're working on alert system to allow donors to choose whether or not they're willing to donate at the time before recievers see their info.",
+      "type": "In Progress"
+    },
+    {
+      "text": "We're integrating a chat system to allow donors and recievers to communicate with each other.",
+      "type": "In Progress"
+    }
+  ],
+  "Resources": [
+    {
+      "img": "img/resources/01.jpg",
+      "link": "https://www.cuimc.columbia.edu/news/surprising-benefits-donating-blood#:~:text=One%20blood%20donation%20can%20save,for%20depression%20and%20greater%20longevity.",
+      "name": "Surprising Benefits of Donating Blood",
+      "job": "Columbia University"
+    },
+    {
+      "img": "img/resources/02.jpg",
+      "link": "https://www.hcahoustonhealthcare.com/healthy-living/blog/donating-blood-benefits-both-recipients-and-donors",
+      "name": "Blood donation benefits for both recipients and donors",
+      "job": "HCA Center, USA"
+    },
+    {
+      "img": "img/resources/03.jpg",
+      "link": "https://www.redcrossblood.org/donate-blood/how-to-donate/how-blood-donations-help.html",
+      "name": "How Blood Donations Help",
+      "job": "American Red Cross"
+    },
+    {
+      "img": "img/resources/04.jpg",
+      "link": "https://www.blood.co.uk/why-give-blood/blood-types/",
+      "name": "Blood Types, who can help whom?",
+      "job": "NHS Organization"
+    }
+  ],
+  "Contact": {
+    "address": "Cairo, Egypt ",
+    "phone": "+201092638799",
+    "email": "nour.ibrahim.mbs.info@gmail.com",
+    "github": "https://github.com/Nour-Ibrahim-1290/Save_Lives",
+    "nlinkedin": "https://www.linkedin.com/in/nourmibrahimmbs/",
+    "alinkedin": "https://www.linkedin.com/in/ahmedsabrieldeeb/",
+    "emaillink": "nour.ibrahim.mbs.info@gmail.com"
+  },
+  "Features": [
+    {
+      "icon": "fa fa-comments-o",
+      "title": "Donors",
+      "text": "We have a wide range of willing Blood donors who are avilable to help once needed."
+    },
+    {
+      "icon": "fa fa-bullhorn",
+      "title": "Recievers",
+      "text": "We aim to provide those who are in need of urgent assistance in Blood donation by connecting them to willing matching donors."
+    },
+    {
+      "icon": "fa fa-magic",
+      "title": "Info. Hub",
+      "text": "Beacuse Education on Blood donation is as important, we will add an information hub to educate the public on the importance of Blood donation."
+    },
+    {
+      "icon": "fa fa-group",
+      "title": "Community",
+      "text": "We'll build a community of Blood donors and recievers to help each other in times of need."
+    }
+  ]
+}

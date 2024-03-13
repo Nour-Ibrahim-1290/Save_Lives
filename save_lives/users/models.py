@@ -69,10 +69,130 @@ class User(AbstractBaseUser):
 
 
 
+# Donor profile attributes
 class Donor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # add any additional fields for Donor here
+    BLOOD_TYPE_CHOICES = [
+        ('O-', 'O-'),
+        ('O+', 'O+'),
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('unknown', 'Unknown'),
+    ]
 
+    DONATE_BLOOD_CHOICES = [
+        ('once', 'Once'),
+        ('regular', 'Regular'),
+        ('never', 'Never'),
+        ('unknown', 'Unknown'),
+    ]
+
+    YES_NO_UNKNOWN_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ('unknown', 'Unknown'),
+    ]
+
+    YES_NO_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ('unknown', 'Unknown'),
+    ]
+
+    HIB_CHOICES = [
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('none', 'None'),
+        ('unknown', 'Unknown'),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+    blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=False, default='unknown')
+    weight = models.PositiveIntegerField(null=False, default=0)
+    donate_blood = models.CharField(max_length=7, choices=DONATE_BLOOD_CHOICES, null=False, default='unknown')
+    anemic = models.CharField(max_length=7, choices=YES_NO_UNKNOWN_CHOICES, null=False, default='unknown')
+    last_donation = models.DateField(null=True, blank=True)
+    operation = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+    infectious = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+    infectious_details = models.TextField(null=True, blank=True)
+    hib = models.CharField(max_length=7, choices=HIB_CHOICES, null=False, default='unknown')
+    heart = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+    pregnant = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+    diabetic = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+    pp = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
+
+
+# Reciever details for both Medical Professional and Patients or their family
 class Receiver(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # add any additional fields for Receiver here
+    PROFESSION_CHOICES = [
+        ('Doctor', 'Doctor'),
+        ('Nurse', 'Nurse'),
+        ('Lab', 'Lab'),
+        ('Pharmacist', 'Pharmacist'),
+        ('Administration', 'Administration'),
+        ('unknown', 'Unknown'),
+    ]
+
+    WORKPLACE_TYPE_CHOICES = [
+        ('Hospital Private', 'Hospital Private'),
+        ('Hospital Public', 'Hospital Public'),
+        ('Private Clinic', 'Private Clinic'),
+        ('Public Clinic', 'Public Clinic'),
+        ('unknown', 'Unknown'),
+    ]
+
+    DONATE_BLOOD_CHOICES = [
+        ('once', 'Once'),
+        ('regular', 'Regular'),
+        ('never', 'Never'),
+        ('unknown', 'Unknown'),
+    ]
+
+    YES_NO_UNKNOWN_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ('unknown', 'Unknown'),
+    ]
+
+    YES_NO_TEMP_CHOICES = [
+        ('yes', 'Yes'),
+        ('no', 'No'),
+        ('temp', 'Temporary'),
+        ('unknown', 'Unknown'),
+    ]
+
+    BLOOD_TYPE_CHOICES = [
+        ('O-', 'O-'),
+        ('O+', 'O+'),
+        ('A+', 'A+'),
+        ('A-', 'A-'),
+        ('B+', 'B+'),
+        ('B-', 'B-'),
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('unknown', 'Unknown'),
+    ]
+
+    ROLE_CHOICES = [
+        ('patient', 'Patient'),
+        ('prof', 'Professional'),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False, default='unknown')
+    profession = models.CharField(max_length=15, choices=PROFESSION_CHOICES, null=True, blank=True)
+    workplace_type = models.CharField(max_length=16, choices=WORKPLACE_TYPE_CHOICES, null=True, blank=True)
+    workplace_name = models.TextField(null=True, blank=True)
+    workplace_address = models.TextField(null=True, blank=True)
+    donate_blood = models.CharField(max_length=7, choices=DONATE_BLOOD_CHOICES, null=True, blank=True)
+    rare_blood_num = models.PositiveIntegerField(null=True, blank=True)
+    rare_blood_measure = models.CharField(max_length=20, null=True, blank=True)
+    allergic = models.CharField(max_length=7, choices=YES_NO_UNKNOWN_CHOICES, null=True, blank=True)
+    allergic_details = models.TextField(null=True, blank=True)
+    blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=True, blank=True)
+    permanent_cond = models.CharField(max_length=7, choices=YES_NO_TEMP_CHOICES, null=True, blank=True)
+    add_info = models.TextField(null=True, blank=True)
