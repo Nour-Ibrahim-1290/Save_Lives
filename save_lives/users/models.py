@@ -2,12 +2,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, name, password=None, age=None, phone=None, user_type=None):
+    def create_user(self, name, email=None, password=None, age=None, phone=None, user_type=None):
         if not name:
             raise ValueError('Users must have a name')
 
         user = self.model(
             name=name,
+            email=email,
             age=age,
             phone=phone,
             user_type=user_type,
