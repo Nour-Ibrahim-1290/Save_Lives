@@ -34,7 +34,7 @@ export const SignRProfForm = (props) => {
   };
 
   return (
-    <div id="signd" className="container">
+    <div id="signrp" className="container">
     <div className="col-md-8">
       <div className="row">
         <div className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -46,7 +46,8 @@ export const SignRProfForm = (props) => {
         <form name="sentMessage" validate onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-12">
-              <div className="form-group">
+            <div className="form-group">
+                <label htmlFor="name" className='form-label'>Enter your full name:</label>
                 <input
                   type="text"
                   id="name"
@@ -59,6 +60,7 @@ export const SignRProfForm = (props) => {
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
+              <label htmlFor="email" className='form-label'>Enter your email address:</label>
                 <input
                   type="email"
                   id="email"
@@ -68,6 +70,134 @@ export const SignRProfForm = (props) => {
                   required
                   onChange={handleChange}
                 />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="age" className='form-label'>Enter your age:</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  className="form-control"
+                  placeholder="Age"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone" className='form-label'>Enter your phone number:</label>
+                <input
+                  type="phone"
+                  id="phone"
+                  name="phone"
+                  className="form-control"
+                  placeholder="phone"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="passwordcheck"
+                  name="passwordcheck"
+                  className="form-control"
+                  placeholder="repeat password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="profession" className='form-label'>
+                        What is your profession in the medical field?</label>
+                <select
+                    id="profession"
+                    name="profession"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="lab">Laboratory Professional</option>
+                    <option value="pharmacist">Pharmacist</option>
+                    <option value="adminstartion">Administration</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="workplace_type" className='form-label'>
+                        What type of medical institution are you working in?</label>
+                <select
+                    id="workplace_type"
+                    name="workplace_type"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="hospital_private">Private Hospital</option>
+                    <option value="hospital_public">Public Hospital</option>
+                    <option value="clinic_private">Private Clinic</option>
+                    <option value="clinic_public">Public Clinic</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="workplace_name" className='form-label'>Enter your age:</label>
+                <input
+                  type="text"
+                  id="workplace_name"
+                  name="workplace_name"
+                  className="form-control"
+                  placeholder="Work Place Name"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="workplace_address" className='form-label'>Enter your age:</label>
+                <input
+                  type="address"
+                  id="workplace_address"
+                  name="workplace_address"
+                  className="form-control"
+                  placeholder="Work Place Address"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="add_info" className='form-label'>
+                        What else would you like us to know?</label>
+                  <textarea
+                    id="add_info"
+                    name="add_info"
+                    className="form-control"
+                    rows="5"
+                    onChange={handleChange}
+                  />
                 <p className="help-block text-danger"></p>
               </div>
             </div>

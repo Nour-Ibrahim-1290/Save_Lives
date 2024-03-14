@@ -35,7 +35,7 @@ export const SignRPatientForm = (props) => {
   };
 
   return (
-    <div id="signd" className="container">
+    <div id="signrp" className="container">
     <div className="col-md-8">
       <div className="row">
         <div className="section-title" style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -47,7 +47,8 @@ export const SignRPatientForm = (props) => {
         <form name="sentMessage" validate onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-12">
-              <div className="form-group">
+            <div className="form-group">
+                <label htmlFor="name" className='form-label'>Enter your full name:</label>
                 <input
                   type="text"
                   id="name"
@@ -60,6 +61,7 @@ export const SignRPatientForm = (props) => {
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
+              <label htmlFor="email" className='form-label'>Enter your email address:</label>
                 <input
                   type="email"
                   id="email"
@@ -69,6 +71,137 @@ export const SignRPatientForm = (props) => {
                   required
                   onChange={handleChange}
                 />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="age" className='form-label'>Enter your age:</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  className="form-control"
+                  placeholder="Age"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone" className='form-label'>Enter your phone number:</label>
+                <input
+                  type="phone"
+                  id="phone"
+                  name="phone"
+                  className="form-control"
+                  placeholder="phone"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="passwordcheck"
+                  name="passwordcheck"
+                  className="form-control"
+                  placeholder="repeat password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="allergic" className='form-label'>
+                        Do you have any kind of alergies that conflicts with the type pf blood you recieve?</label>
+                <select
+                    id="allergic"
+                    name="allergic"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I have</option>
+                    <option value="no">No, I have not</option>
+                    <option value="unknown">I don't really know</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="allergic_details">
+                        If you have any allergies, tell us more...</label>
+                  <textarea
+                    id="allergic_details"
+                    name="allergic_details"
+                    className="form-control"
+                    rows="3"
+                    onChange={handleChange}
+                  />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="blood_type" className='form-label'>What is your Blood Type?</label>
+                <select
+                    id="blood_type"
+                    name="blood_type"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="O-">O-</option>
+                    <option value="O+">O+</option>
+                    <option value="A-">A-</option>
+                    <option value="A+">A+</option>
+                    <option value="B-">B-</option>
+                    <option value="B+">B+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="AB+">AB+</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="permanent_cond" className='form-label'>
+                        Is your condition permenant?</label>
+                <select
+                    id="permanent_cond"
+                    name="permanent_cond"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I need blood often</option>
+                    <option value="temp">Yes, I will need blood donations for a while</option>
+                    <option value="no">No, It's a one time case</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="add_info" className='form-label'>
+                        What else would you like us to know?</label>
+                  <textarea
+                    id="add_info"
+                    name="add_info"
+                    className="form-control"
+                    rows="5"
+                    onChange={handleChange}
+                  />
                 <p className="help-block text-danger"></p>
               </div>
             </div>

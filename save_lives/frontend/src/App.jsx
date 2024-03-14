@@ -8,6 +8,7 @@ import SignDonor from './Sign/SignDonor';
 import SignRPatient from './Sign/SignRecieverPatient';
 import SignRProf from './Sign/SignRecieverProf';
 import "./App.css";
+import Dashboard from './dashboard/Dashboard';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/signrecieverinitial" element={<SignRStart />} />
         <Route path="/signrecieverpatient" element={<SignRPatient />} />
         <Route path="/signrecieverprof" element={<SignRProf />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );
