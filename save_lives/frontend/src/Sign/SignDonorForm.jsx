@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import emailjs from "emailjs-com";
 import { Link } from 'react-router-dom';
 
 import "../style/css/style.css";
@@ -12,25 +11,31 @@ import "../style/css/nivo-lightbox/default.css";
 const initialState = {
   name: "",
   email: "",
-  message: "",
+  age: "",
+  phone: "",
+  user_type: "donor",
+  account_state: "initial",
+  password: "",
 };
 
 
 export const SignDonorForm = (props) => {
 
 
-  const [{ name, email, message }, setState] = useState(initialState);
+  const [{ name, email, age, phone, user_type, account_state, password }, setState] = useState(initialState);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, age, phone, user_type, account_state, password } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
   const clearState = () => setState({ ...initialState });
   
   
   const handleSubmit = (e) => {
+    // user_type is required qhich will be donor
+    // account_state is required which will be initial
     e.preventDefault();
-    console.log(name, email, message);
+    console.log(name, email, phone);
     
   };
 
@@ -48,6 +53,7 @@ export const SignDonorForm = (props) => {
           <div className="row">
             <div className="col-md-12">
               <div className="form-group">
+                <label htmlFor="name" className='form-label'>Enter your full name:</label>
                 <input
                   type="text"
                   id="name"
@@ -60,6 +66,7 @@ export const SignDonorForm = (props) => {
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
+              <label htmlFor="email" className='form-label'>Enter your email address:</label>
                 <input
                   type="email"
                   id="email"
@@ -69,6 +76,255 @@ export const SignDonorForm = (props) => {
                   required
                   onChange={handleChange}
                 />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="age" className='form-label'>Enter your age:</label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  className="form-control"
+                  placeholder="Age"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone" className='form-label'>Enter your phone number:</label>
+                <input
+                  type="phone"
+                  id="phone"
+                  name="phone"
+                  className="form-control"
+                  placeholder="phone"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <input
+                  type="password"
+                  id="passwordcheck"
+                  name="passwordcheck"
+                  className="form-control"
+                  placeholder="repeat password"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="weight" className='form-label'>Enter your Weight in kg:</label>
+                <input
+                  type="number"
+                  id="weight"
+                  name="weight"
+                  className="form-control"
+                  placeholder="weight in kg"
+                  required
+                  onChange={handleChange}
+                />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="blood_type" className='form-label'>What is your Blood Type?</label>
+                <select
+                    id="blood_type"
+                    name="blood_type"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="O-">O-</option>
+                    <option value="O+">O+</option>
+                    <option value="A-">A-</option>
+                    <option value="A+">A+</option>
+                    <option value="B-">B-</option>
+                    <option value="B+">B+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="AB+">AB+</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="donate_blood" className='form-label'>Did you donate your blood before?</label>
+                <select
+                    id="donate_blood"
+                    name="donate_blood"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="once">Yes, once</option>
+                    <option value="regular">Yes, servral times</option>
+                    <option value="never">No, never before</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="last_donation" className='form-label'>When did you donate your blood last?</label>
+                <label htmlFor="last_donation">(answer only if you said yes for the last question)</label>
+                <input
+                    type="date"
+                    id="last_donation"
+                    name="last_donation"
+                    className="form-control"
+                    onChange={handleChange}
+                  />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="anemic" className='form-label'>Are you Anemic?</label>
+                <select
+                    id="anemic"
+                    name="anemic"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I'm Anemic</option>
+                    <option value="no">No, I'm not Anemic</option>
+                    <option value="unknown">I don't really know</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="operation" className='form-label'>Did you went through operation lately?</label>
+                <select
+                    id="operation"
+                    name="operation"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I did</option>
+                    <option value="no">No, I didn't</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="infectious" className='form-label'>Did you have any kind of Infectious deseases?</label>
+                <select
+                    id="infectious"
+                    name="infectious"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I have</option>
+                    <option value="no">No, I haven't</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="infectious_details">
+                        If you have any infectious deseases, tell us more...</label>
+                  <textarea
+                    id="infectious_details"
+                    name="infectious_details"
+                    className="form-control"
+                    rows="3"
+                    onChange={handleChange}
+                  />
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="hib" className='form-label'>Did you have any kind of Infectious deseases?</label>
+                <select
+                    id="hib"
+                    name="hib"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, HIB A</option>
+                    <option value="yes">Yes, HIB B</option>
+                    <option value="yes">Yes, HIB C</option>
+                    <option value="no">No, I don't have HIB</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="heart" className='form-label'>Did you have a Heart Condition?</label>
+                <select
+                    id="heart"
+                    name="heart"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I have</option>
+                    <option value="no">No, I haven't</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="pregnant" className='form-label'>Are you pregnant?</label>
+                <select
+                    id="pregnant"
+                    name="pregnant"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I am</option>
+                    <option value="no">No, I am not</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="diabetic" className='form-label'>Are you Diabetic?</label>
+                <select
+                    id="diabetic"
+                    name="diabetic"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I have</option>
+                    <option value="no">No, I haven't</option>
+                  </select>
+                <p className="help-block text-danger"></p>
+              </div>
+              <div className="form-group">
+                <label htmlFor="pp" className='form-label'>Did you have Blood Preasure condition?</label>
+                <select
+                    id="pp"
+                    name="pp"
+                    className="form-control"
+                    required
+                    onChange={handleChange}
+                  >
+                    <option value="">Select...</option>
+                    <option value="yes">Yes, I have</option>
+                    <option value="no">No, I haven't</option>
+                  </select>
                 <p className="help-block text-danger"></p>
               </div>
             </div>

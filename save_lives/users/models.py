@@ -128,19 +128,19 @@ class Donor(models.Model):
 # Reciever details for both Medical Professional and Patients or their family
 class Receiver(models.Model):
     PROFESSION_CHOICES = [
-        ('Doctor', 'Doctor'),
-        ('Nurse', 'Nurse'),
-        ('Lab', 'Lab'),
-        ('Pharmacist', 'Pharmacist'),
-        ('Administration', 'Administration'),
+        ('doctor', 'Doctor'),
+        ('nurse', 'Nurse'),
+        ('lab', 'Lab'),
+        ('pharmacist', 'Pharmacist'),
+        ('administration', 'Administration'),
         ('unknown', 'Unknown'),
     ]
 
     WORKPLACE_TYPE_CHOICES = [
-        ('Hospital Private', 'Hospital Private'),
-        ('Hospital Public', 'Hospital Public'),
-        ('Private Clinic', 'Private Clinic'),
-        ('Public Clinic', 'Public Clinic'),
+        ('hospital_private', 'Hospital Private'),
+        ('hospital_public', 'Hospital Public'),
+        ('private_clinic', 'Private Clinic'),
+        ('public_clinic', 'Public Clinic'),
         ('unknown', 'Unknown'),
     ]
 
@@ -181,8 +181,11 @@ class Receiver(models.Model):
         ('prof', 'Professional'),
     ]
 
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False, default='unknown')
+    
+    # Medical Professional Fields
     profession = models.CharField(max_length=15, choices=PROFESSION_CHOICES, null=True, blank=True)
     workplace_type = models.CharField(max_length=16, choices=WORKPLACE_TYPE_CHOICES, null=True, blank=True)
     workplace_name = models.TextField(null=True, blank=True)
@@ -190,6 +193,8 @@ class Receiver(models.Model):
     donate_blood = models.CharField(max_length=7, choices=DONATE_BLOOD_CHOICES, null=True, blank=True)
     rare_blood_num = models.PositiveIntegerField(null=True, blank=True)
     rare_blood_measure = models.CharField(max_length=20, null=True, blank=True)
+    
+    # Patient or Family Fields
     allergic = models.CharField(max_length=7, choices=YES_NO_UNKNOWN_CHOICES, null=True, blank=True)
     allergic_details = models.TextField(null=True, blank=True)
     blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=True, blank=True)

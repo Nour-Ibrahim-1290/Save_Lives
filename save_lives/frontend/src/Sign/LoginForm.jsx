@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import * as yup from 'yup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import "../style/css/style.css";
 import "../style/css/bootstrap.css";
@@ -28,13 +28,14 @@ const validationSchema = yup.object({
 });
 
 const sendLoginRequest = async (email, password) => {
+  console.log("Inside sendLoginRequest");
   try {
-    const response = await axios.post('http://localhost:8000/api/users/login/', {
+    const response = await axios.post('http://127.0.0.1:8000/users/login/', {
       email,
       password
     });
 
-    return response.data; // this will be { token, sessionId } if successful
+    return response.data; 
   } catch (error) {
     console.error(error);
     return { error: error.message };
@@ -42,23 +43,42 @@ const sendLoginRequest = async (email, password) => {
 };
 
 export const LoginForm = (props) => {
-  const [{ email, password }, setState] = useState(initialState);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    if (name === "email") {
+      setEmail(value);
+    } else if (name === "password") {
+      setPassword(value);
+    }
   };
 
   const handleSubmit = async (e) => {
-    console.log("Inside HandleChange");
-    console.log(e);
+    console.log("Inside handleSubmit");
     e.preventDefault();
-    const isValid = await validationSchema.isValid({ email, password });
-    if (isValid) {
-      const response = await sendLoginRequest(email, password);
-      console.log(response);
-    } else {
-      console.log('Invalid form submission');
+    // const isValid = await validationSchema.isValid({ email, password });
+    if (1) {
+      try {
+        const response = await sendLoginRequest(email, password);
+        if (response && !response.error) {
+          navigate('/dashboard');
+        } else {
+          setError("ُEither you email or password are not correct!");
+        }
+      } catch (error) {
+        console.log(error);
+        if (error.response && error.response.data) {
+          // Extract error message from server's response
+          setError(error);
+        } else {
+          // Use error.message if the server didn't send a response
+          setError("ُEither you email or password are not correct!");
+        }
+      }
     }
   };
 
@@ -71,6 +91,7 @@ export const LoginForm = (props) => {
           <p>
              Enter your email below to login to your account.
           </p>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
         <form name="sentMessage" validate onSubmit={handleSubmit}>
           <div className="row">
@@ -78,7 +99,7 @@ export const LoginForm = (props) => {
               <div className="form-group">
                 <input
                   type="email"
-                  id="email"
+                  id="emaillogin"
                   name="email"
                   className="form-control"
                   placeholder="Email"

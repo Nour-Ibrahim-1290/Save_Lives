@@ -47,7 +47,7 @@ class LoginView(APIView):
     """Login Process."""
     def post(self, request):
         """Log in a user."""
-        name = request.data['name']
+        email = request.data['email']
         password = request.data['password']
 
         try:
