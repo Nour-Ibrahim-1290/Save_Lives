@@ -44,13 +44,14 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
             request.session['user'] = user.id
+            request.session.save()
             print(user.id)
 
             if user.user_type == 'donor':
                 return redirect('donor_register')
             
-            if user.user_type == 'reciever':
-                return redirect('reciever_register')
+            if user.user_type == 'receiver':
+                return redirect('receiver_register')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -62,7 +63,9 @@ class RegisterDonorView(APIView):
         user = User.objects.get(id=user_id)
 
         # Continue the registration process for the donor
-        serializer = DonorSerializer(data=request.data)
+        data = request.data.copy()
+        data['user'] = user_id
+        serializer = DonorSerializer(data=data)
 
         if serializer.is_valid():
             serializer.save(user=user)
@@ -81,7 +84,9 @@ class RegisterReceiverView(APIView):
         user = User.objects.get(id=user_id)
 
         # Continue the registration process for the receiver
-        serializer = ReceiverSerializer(data=request.data)
+        data = request.data.copy()
+        data['user'] = user_id
+        serializer = ReceiverSerializer(data=data)
 
         if serializer.is_valid():
             serializer.save(user=user)
