@@ -43,9 +43,10 @@ class RegisterView(APIView):
 
         if serializer.is_valid():
             user = serializer.save()
+            request.session['user_id'] = user.id
 
             if user.user_type == 'donor':
-                return redirect('donor_regsisr')
+                return redirect('donor_register')
             
             if user.user_type == 'reciever':
                 return redirect('reciever_register')
