@@ -44,10 +44,10 @@ class RegisterView(APIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            if user.type == 'donor':
+            if user.user_type == 'donor':
                 return redirect('donor_regsisr')
             
-            if user.type == 'reciever':
+            if user.user_type == 'reciever':
                 return redirect('reciever_register')
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
