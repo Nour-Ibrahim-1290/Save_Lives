@@ -43,7 +43,8 @@ class RegisterView(APIView):
 
         if serializer.is_valid():
             user = serializer.save()
-            request.session['user_id'] = user.id
+            request.session['user'] = user.id
+            print(user.id)
 
             if user.user_type == 'donor':
                 return redirect('donor_register')
@@ -57,7 +58,7 @@ class RegisterDonorView(APIView):
     """Donor Registrations Process."""
     def post(self, request):
         # Retrieve the user from the session
-        user_id = request.session['user_id']
+        user_id = request.session['user']
         user = User.objects.get(id=user_id)
 
         # Continue the registration process for the donor
@@ -66,17 +67,17 @@ class RegisterDonorView(APIView):
         if serializer.is_valid():
             serializer.save(user=user)
             response_data = generate_tokens(user)
-            del request.session['user_id']
+            del request.session['user']
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
-            del request.session['user_id']
+            del request.session['user']
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RegisterReceiverView(APIView):
     """Donor Registrations Process."""
     def post(self, request):
         # Retrieve the user from the session
-        user_id = request.session['user_id']
+        user_id = request.session['user']
         user = User.objects.get(id=user_id)
 
         # Continue the registration process for the receiver
@@ -85,10 +86,10 @@ class RegisterReceiverView(APIView):
         if serializer.is_valid():
             serializer.save(user=user)
             response_data = generate_tokens(user)
-            del request.session['user_id']
+            del request.session['user']
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
-            del request.session['user_id']
+            del request.session['user']
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
