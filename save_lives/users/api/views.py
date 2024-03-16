@@ -6,6 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from ..models import User, Donor, Receiver
 from .serializers import UserSerializer, DonorSerializer, ReceiverSerializer
 
+
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect
 
@@ -67,6 +68,10 @@ class RegisterDonorView(APIView):
         data['user'] = user_id
         serializer = DonorSerializer(data=data)
 
+        return self._register_user(serializer, user, request)
+
+    def _register_user(self, serializer, user, request):
+        """Register a user."""
         if serializer.is_valid():
             serializer.save(user=user)
             response_data = generate_tokens(user)
@@ -88,6 +93,10 @@ class RegisterReceiverView(APIView):
         data['user'] = user_id
         serializer = ReceiverSerializer(data=data)
 
+        return self._register_user(serializer, user, request)
+
+    def _register_user(self, serializer, user, request):
+        """Register a user."""
         if serializer.is_valid():
             serializer.save(user=user)
             response_data = generate_tokens(user)
