@@ -3,8 +3,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..models import User
-from .serializers import UserSerializer
+from ..models import User, Donor, Receiver
+from .serializers import UserSerializer, DonorSerializer, ReceiverSerializer
+
+
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import redirect
 
 
 def generate_tokens(user):
@@ -35,12 +39,71 @@ class RegisterView(APIView):
     """Registerations Process."""
     def post(self, request):
         """Create a new user."""
+
         serializer = UserSerializer(data=request.data)
+
         if serializer.is_valid():
             user = serializer.save()
+            request.session['user'] = user.id
+            request.session.save()
+            print(user.id)
+
+            if user.user_type == 'donor':
+                return redirect('donor_register')
+            
+            if user.user_type == 'receiver':
+                return redirect('receiver_register')
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RegisterDonorView(APIView):
+    """Donor Registrations Process."""
+    def post(self, request):
+        # Retrieve the user from the session
+        user_id = request.session['user']
+        user = User.objects.get(id=user_id)
+
+        # Continue the registration process for the donor
+        data = request.data.copy()
+        data['user'] = user_id
+        serializer = DonorSerializer(data=data)
+
+        return self._register_user(serializer, user, request)
+
+    def _register_user(self, serializer, user, request):
+        """Register a user."""
+        if serializer.is_valid():
+            serializer.save(user=user)
             response_data = generate_tokens(user)
+            del request.session['user']
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
+            del request.session['user']
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RegisterReceiverView(APIView):
+    """Donor Registrations Process."""
+    def post(self, request):
+        # Retrieve the user from the session
+        user_id = request.session['user']
+        user = User.objects.get(id=user_id)
+
+        # Continue the registration process for the receiver
+        data = request.data.copy()
+        data['user'] = user_id
+        serializer = ReceiverSerializer(data=data)
+
+        return self._register_user(serializer, user, request)
+
+    def _register_user(self, serializer, user, request):
+        """Register a user."""
+        if serializer.is_valid():
+            serializer.save(user=user)
+            response_data = generate_tokens(user)
+            del request.session['user']
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        else:
+            del request.session['user']
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
