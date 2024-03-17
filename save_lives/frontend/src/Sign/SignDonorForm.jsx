@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios  from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 import "../style/css/style.css";
 import "../style/css/bootstrap.css";
@@ -19,24 +20,66 @@ const initialState = {
 };
 
 
+// {
+//   "name": "nour",
+//   "email": "nour@gmail.com",
+//   "age": "34",
+//   "password": "nourpass",
+//   "phone": "12345",
+//   "user_type": "donor"
+//   }
+
+
+const sendRegisterRequest = async (name, email, age, phone, user_type, account_state, password) => {
+  console.log("Inside sendLoginRequest");
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/users/register/', {
+      name, email, age, password, phone, user_type, account_state
+    });
+    return response.data;
+
+  } catch (error) {
+    console.error(error);
+    return { error: error.message };
+  }
+};
+
+
 export const SignDonorForm = (props) => {
-
-
   const [{ name, email, age, phone, user_type, account_state, password }, setState] = useState(initialState);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, age, phone, user_type, account_state, password } = e.target;
+    const { name, value } = e.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
   };
   const clearState = () => setState({ ...initialState });
   
   
-  const handleSubmit = (e) => {
-    // user_type is required qhich will be donor
-    // account_state is required which will be initial
+  const handleSubmit = async (e) => {
+    console.log("Inside handleSubmit");
     e.preventDefault();
-    console.log(name, email, phone);
-    
+    // const isValid = await validationSchema.isValid({ email, password });
+    if (1) {
+      try {
+        const response = await sendRegisterRequest(email, password);
+        if (response && !response.error) {
+          navigate('/');
+        } else {
+          setError("ُAnonymous error happended while posting registration data!");
+        }
+      } catch (error) {
+        console.log(error);
+        if (error.response && error.response.data) {
+          // Extract error message from server's response
+          setError(error);
+        } else {
+          // Use error.message if the server didn't send a response
+          setError("ُAnonymous error happended while posting registration data!");
+        }
+      }
+    }
   };
 
   return (

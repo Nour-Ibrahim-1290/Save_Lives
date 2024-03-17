@@ -11,21 +11,21 @@ export default function DashboardBase() {
     const navigate = useNavigate();
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const username = localStorage.getItem('name');
 
 
     const [selectedPage, setSelectedPage] = useState('Page1');
-    const Page1 = () => <InfoCard />;
+    const Page1 = () => <div>Page 3 content</div>;
     const Page2 = () => <Grid />;
-    const Page3 = () => <div>Page 3 content</div>;
 
-    const handleSettings = () => {
-        // Navigate to the settings page
-        navigate('/settings');
-    };
-
-    const handleSupport = () => {
-        // Navigate to the support page
-        navigate('/support');
+    const handleSignOut = () => {
+      // Perform your actions here
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('name');
+    
+      // Then navigate to the sign out page
+      navigate('/');
     };
 
     const handleLogout = () => {
@@ -39,7 +39,8 @@ export default function DashboardBase() {
     <div id="dashboard" className="container">
       <div>
       <header className="header">
-          <h1>Dashboard</h1>
+          <h2>Welcome, {username}</h2>
+          <button onClick={handleSignOut} className='signout-link'>Sign Out</button>
         </header>
       </div>
 
@@ -61,7 +62,6 @@ export default function DashboardBase() {
     <main>
         {selectedPage === 'Page1' && <Page1 />}
         {selectedPage === 'Page2' && <Page2 />}
-        {selectedPage === 'Page3' && <Page3 />}
     </main>
     </div>
   </div>

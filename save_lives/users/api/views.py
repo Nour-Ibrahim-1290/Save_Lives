@@ -114,7 +114,7 @@ class LoginView(APIView):
         password = request.data['password']
 
         try:
-            user = User.objects.get(name=name)
+            user = User.objects.get(email=email)
         except User.DoesNotExist:
             return Response({'error': 'Invalid Username'}, status=status.HTTP_401_UNAUTHORIZED)
         
