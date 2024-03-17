@@ -16,16 +16,6 @@ const initialState = {
   password: "",
 };
 
-const validationSchema = yup.object({
-  email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
-});
 
 const sendLoginRequest = async (email, password) => {
   console.log("Inside sendLoginRequest");
@@ -34,6 +24,11 @@ const sendLoginRequest = async (email, password) => {
       email,
       password
     });
+
+    // Store tokens in localStorage
+    localStorage.setItem('name', response.data.username);
+    localStorage.setItem('refreshToken', response.data.token.refresh);
+    localStorage.setItem('accessToken', response.data.token.access);
 
     return response.data; 
   } catch (error) {
