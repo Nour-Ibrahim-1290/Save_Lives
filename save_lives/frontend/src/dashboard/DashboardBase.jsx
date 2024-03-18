@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import InfoCard from './InfoCard';
 import Grid from './InfoCardGrid';
+import ProfilePage from './ProfilePage';
 
 
 export default function DashboardBase() {
@@ -15,7 +16,7 @@ export default function DashboardBase() {
 
 
     const [selectedPage, setSelectedPage] = useState('Page1');
-    const Page1 = () => <div>Page 3 content</div>;
+    const Page1 = () => <div><ProfilePage/></div>;
     const Page2 = () => <Grid />;
 
     const handleSignOut = () => {

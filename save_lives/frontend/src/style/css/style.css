@@ -827,6 +827,33 @@ label {
   background-color: #e7dfdf;
 }
 
+
+/* profile Page Styles */
+
+.profile-page {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.profile-page h1 {
+  margin-bottom: 20px;
+}
+
+.profile-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.profile-page th,
+.profile-page td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-page th {
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;
