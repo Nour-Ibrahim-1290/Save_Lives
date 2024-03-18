@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import "../style/css/style.css";
 import "../style/css/bootstrap.css";
@@ -8,29 +9,49 @@ import "../style/css/nivo-lightbox/nivo-lightbox.css";
 import "../style/css/nivo-lightbox/default.css";
 
 
-const initialState = {
-  name: "",
-  email: "",
-  message: "",
-};
-
 
 export const SignRProfForm = (props) => {
-
-
-  const [{ name, email, message }, setState] = useState(initialState);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-  const clearState = () => setState({ ...initialState });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
   
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log("Inside handleSubmit");
     e.preventDefault();
-    console.log(name, email, message);
-    
+  
+    // Create a FormData instance
+    const formData = new FormData(e.target);
+  
+    // Convert FormData to an object
+    const data = Object.fromEntries(formData.entries());
+    data.user_type = 'receiver';
+  
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/users/register/',
+            JSON.stringify(data), {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+      });
+  
+      if (response.status === 201) {
+        navigate('/login');
+      } else {
+        // Handle successful request but status code is not 201
+        setError(`Request was successful but status code is not 201: ${response.status}`);
+      }
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setError("There's a record with email in the database, please login or use another email.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError('No response received from server. Please check your network connection.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError(`Error in setting up the request: ${error.message}`);
+      }
+    }
   };
 
   return (
@@ -50,12 +71,11 @@ export const SignRProfForm = (props) => {
                 <label htmlFor="name" className='form-label'>Enter your full name:</label>
                 <input
                   type="text"
-                  id="name"
+                  id="rprname"
                   name="name"
                   className="form-control"
                   placeholder="Name"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -63,12 +83,11 @@ export const SignRProfForm = (props) => {
               <label htmlFor="email" className='form-label'>Enter your email address:</label>
                 <input
                   type="email"
-                  id="email"
+                  id="rpremail"
                   name="email"
                   className="form-control"
                   placeholder="Email"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -81,7 +100,6 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="Age"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -94,7 +112,6 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="phone"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -107,7 +124,6 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="password"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -120,7 +136,6 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="repeat password"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -132,7 +147,7 @@ export const SignRProfForm = (props) => {
                     name="profession"
                     className="form-control"
                     required
-                    onChange={handleChange}
+                    
                   >
                     <option value="">Select...</option>
                     <option value="doctor">Doctor</option>
@@ -151,7 +166,7 @@ export const SignRProfForm = (props) => {
                     name="workplace_type"
                     className="form-control"
                     required
-                    onChange={handleChange}
+                    
                   >
                     <option value="">Select...</option>
                     <option value="hospital_private">Private Hospital</option>
@@ -170,7 +185,7 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="Work Place Name"
                   required
-                  onChange={handleChange}
+                 
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -183,7 +198,7 @@ export const SignRProfForm = (props) => {
                   className="form-control"
                   placeholder="Work Place Address"
                   required
-                  onChange={handleChange}
+                 
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -196,7 +211,7 @@ export const SignRProfForm = (props) => {
                     name="add_info"
                     className="form-control"
                     rows="5"
-                    onChange={handleChange}
+                   
                   />
                 <p className="help-block text-danger"></p>
               </div>

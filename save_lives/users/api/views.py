@@ -35,26 +35,65 @@ def generate_tokens(user):
     return response_data
 
 
+
+# Modified User View
 class RegisterView(APIView):
-    """Registerations Process."""
+    """Registration Process."""
     def post(self, request):
         """Create a new user."""
 
-        serializer = UserSerializer(data=request.data)
+        user_serializer = UserSerializer(data=request.data)
 
-        if serializer.is_valid():
-            user = serializer.save()
-            request.session['user'] = user.id
-            request.session.save()
-            print(user.id)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
 
             if user.user_type == 'donor':
-                return redirect('donor_register')
-            
-            if user.user_type == 'receiver':
-                return redirect('receiver_register')
+                donor_data = {**request.data, "user": user.id}  # Add user id to the request data
+                donor_serializer = DonorSerializer(data=donor_data)
+                if donor_serializer.is_valid():
+                    donor_serializer.save()
+                    response_data = generate_tokens(user)
+                    return Response(response_data, status=status.HTTP_201_CREATED)
+                else:
+                    user.delete()  # Delete the user if donor data is invalid
+                    return Response(donor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            elif user.user_type == 'receiver':
+                receiver_data = {**request.data, "user": user.id}  # Add user id to the request data
+                receiver_serializer = ReceiverSerializer(data=receiver_data)
+                if receiver_serializer.is_valid():
+                    receiver_serializer.save()
+                    response_data = generate_tokens(user)
+                    return Response(response_data, status=status.HTTP_201_CREATED)
+                else:
+                    user.delete()  # Delete the user if receiver data is invalid
+                    return Response(receiver_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class RegisterView(APIView):
+#     """Registerations Process."""
+#     def post(self, request):
+#         """Create a new user."""
+
+#         serializer = UserSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             user = serializer.save()
+#             request.session['user'] = user.id
+#             request.session.save()
+#             print(user.id)
+
+#             if user.user_type == 'donor':
+#                 return redirect('donor_register')
+            
+#             if user.user_type == 'receiver':
+#                 return redirect('receiver_register')
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class RegisterDonorView(APIView):
     """Donor Registrations Process."""

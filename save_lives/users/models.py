@@ -43,7 +43,7 @@ class User(AbstractBaseUser):
         ('completed', 'Completed'),
     )
 
-    name = models.CharField(max_length=255, unique=True, null=False)
+    name = models.CharField(max_length=255, null=False)
     email = models.EmailField(max_length=255, unique=True, null=False)
     password = models.CharField(max_length=255, null=False)
     age = models.IntegerField(null=True, blank=True)

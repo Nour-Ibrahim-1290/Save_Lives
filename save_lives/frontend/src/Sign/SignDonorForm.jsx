@@ -9,75 +9,47 @@ import "../style/css/nivo-lightbox/nivo-lightbox.css";
 import "../style/css/nivo-lightbox/default.css";
 
 
-const initialState = {
-  name: "",
-  email: "",
-  age: "",
-  phone: "",
-  user_type: "donor",
-  account_state: "initial",
-  password: "",
-};
-
-
-// {
-//   "name": "nour",
-//   "email": "nour@gmail.com",
-//   "age": "34",
-//   "password": "nourpass",
-//   "phone": "12345",
-//   "user_type": "donor"
-//   }
-
-
-const sendRegisterRequest = async (name, email, age, phone, user_type, account_state, password) => {
-  console.log("Inside sendLoginRequest");
-  try {
-    const response = await axios.post('http://127.0.0.1:8000/users/register/', {
-      name, email, age, password, phone, user_type, account_state
-    });
-    return response.data;
-
-  } catch (error) {
-    console.error(error);
-    return { error: error.message };
-  }
-};
-
 
 export const SignDonorForm = (props) => {
-  const [{ name, email, age, phone, user_type, account_state, password }, setState] = useState(initialState);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
-  const clearState = () => setState({ ...initialState });
-  
   
   const handleSubmit = async (e) => {
     console.log("Inside handleSubmit");
     e.preventDefault();
-    // const isValid = await validationSchema.isValid({ email, password });
-    if (1) {
-      try {
-        const response = await sendRegisterRequest(email, password);
-        if (response && !response.error) {
-          navigate('/');
-        } else {
-          setError("ُAnonymous error happended while posting registration data!");
-        }
-      } catch (error) {
-        console.log(error);
-        if (error.response && error.response.data) {
-          // Extract error message from server's response
-          setError(error);
-        } else {
-          // Use error.message if the server didn't send a response
-          setError("ُAnonymous error happended while posting registration data!");
-        }
+  
+    // Create a FormData instance
+    const formData = new FormData(e.target);
+  
+    // Convert FormData to an object
+    const data = Object.fromEntries(formData.entries());
+    data.user_type = 'donor';
+  
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/users/register/',
+            JSON.stringify(data), {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+      });
+  
+      if (response.status === 201) {
+        navigate('/login');
+      } else {
+        // Handle successful request but status code is not 201
+        setError(`Request was successful but status code is not 201: ${response.status}`);
+      }
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        setError("There's a record with email in the database, please login or use another email.");
+      } else if (error.request) {
+        // The request was made but no response was received
+        setError('No response received from server. Please check your network connection.');
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        setError(`Error in setting up the request: ${error.message}`);
       }
     }
   };
@@ -91,6 +63,7 @@ export const SignDonorForm = (props) => {
           <p>
           Welcome to our community, we salute your selfless act, and hope you will only benefit your health out of it.
           </p>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
         <form name="sentMessage" validate onSubmit={handleSubmit}>
           <div className="row">
@@ -104,7 +77,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="Name"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -117,7 +89,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="Email"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -130,7 +101,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="Age"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -143,7 +113,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="phone"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -156,12 +125,11 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="password"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
-                <label htmlFor="password" className='form-label'>Enter your account's password:</label>
+                <label htmlFor="password" className='form-label'>Confirm your password:</label>
                 <input
                   type="password"
                   id="passwordcheck"
@@ -169,7 +137,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="repeat password"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -182,7 +149,6 @@ export const SignDonorForm = (props) => {
                   className="form-control"
                   placeholder="weight in kg"
                   required
-                  onChange={handleChange}
                 />
                 <p className="help-block text-danger"></p>
               </div>
@@ -193,7 +159,6 @@ export const SignDonorForm = (props) => {
                     name="blood_type"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="O-">O-</option>
@@ -214,7 +179,6 @@ export const SignDonorForm = (props) => {
                     name="donate_blood"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="once">Yes, once</option>
@@ -231,7 +195,6 @@ export const SignDonorForm = (props) => {
                     id="last_donation"
                     name="last_donation"
                     className="form-control"
-                    onChange={handleChange}
                   />
                 <p className="help-block text-danger"></p>
               </div>
@@ -242,7 +205,6 @@ export const SignDonorForm = (props) => {
                     name="anemic"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I'm Anemic</option>
@@ -258,7 +220,6 @@ export const SignDonorForm = (props) => {
                     name="operation"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I did</option>
@@ -273,7 +234,6 @@ export const SignDonorForm = (props) => {
                     name="infectious"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I have</option>
@@ -289,24 +249,22 @@ export const SignDonorForm = (props) => {
                     name="infectious_details"
                     className="form-control"
                     rows="3"
-                    onChange={handleChange}
                   />
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
-                <label htmlFor="hib" className='form-label'>Did you have any kind of Infectious deseases?</label>
+                <label htmlFor="hib" className='form-label'>Are you diagnosed with any of HIB A, B, or C?</label>
                 <select
                     id="hib"
                     name="hib"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
-                    <option value="yes">Yes, HIB A</option>
-                    <option value="yes">Yes, HIB B</option>
-                    <option value="yes">Yes, HIB C</option>
-                    <option value="no">No, I don't have HIB</option>
+                    <option value="A">Yes, HIB A</option>
+                    <option value="B">Yes, HIB B</option>
+                    <option value="C">Yes, HIB C</option>
+                    <option value="none">No, I don't have HIB</option>
                   </select>
                 <p className="help-block text-danger"></p>
               </div>
@@ -317,7 +275,6 @@ export const SignDonorForm = (props) => {
                     name="heart"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I have</option>
@@ -332,7 +289,6 @@ export const SignDonorForm = (props) => {
                     name="pregnant"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I am</option>
@@ -347,7 +303,6 @@ export const SignDonorForm = (props) => {
                     name="diabetic"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I have</option>
@@ -362,7 +317,6 @@ export const SignDonorForm = (props) => {
                     name="pp"
                     className="form-control"
                     required
-                    onChange={handleChange}
                   >
                     <option value="">Select...</option>
                     <option value="yes">Yes, I have</option>
@@ -372,7 +326,7 @@ export const SignDonorForm = (props) => {
               </div>
             </div>
           </div>
-          <div id="success"></div>
+          <div id="success"></div> 
           <button type="submit" className="btn btn-custom btn-lg">
             Resgiter as Donor
           </button>
@@ -382,6 +336,7 @@ export const SignDonorForm = (props) => {
           <Link className="underline" to="/login" style={{ marginLeft: '10px' }}>
             Login
           </Link>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
       </div>
     </div>

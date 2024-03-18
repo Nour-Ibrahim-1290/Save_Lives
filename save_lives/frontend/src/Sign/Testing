@@ -1,0 +1,21 @@
+{
+    "name": "Nour Mahmoud Ibrahim",
+    "email": "nouribrahim1290@gmail.com",
+    "age": "34",
+    "phone": "+201092638799",
+    "password": "nourpass",
+    "passwordcheck": "nourpass",
+    "weight": "90",
+    "blood_type": "O-",
+    "donate_blood": "regular",
+    "last_donation": "2023-12-20",
+    "anemic": "no",
+    "operation": "no",
+    "infectious": "no",
+    "infectious_details": "",
+    "hib": "none",
+    "heart": "no",
+    "pregnant": "no",
+    "diabetic": "no",
+    "pp": "yes"
+}
