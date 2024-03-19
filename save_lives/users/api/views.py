@@ -8,8 +8,30 @@ from .serializers import UserSerializer, DonorSerializer, ReceiverSerializer
 
 
 from django.contrib.auth.hashers import check_password
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+from django.db.models import Q
 
+
+
+
+# class UserDetailView(APIView):
+#     def get(self, request, user_id):
+#         print("Inside Get Request Function View")
+#         user = get_object_or_404(User, id=user_id)
+#         print(user)
+#         if user.user_type == 'donor':
+#             user_detail = Donor.objects.filter(user=user).first()
+#             serializer = DonorSerializer(user_detail)
+#         elif user.user_type == 'receiver':
+#             user_detail = Receiver.objects.filter(user=user).first()
+#             serializer = ReceiverSerializer(user_detail)
+#         else:
+#             return Response({'error': 'Invalid user type'}, status=status.HTTP_400_BAD_REQUEST)
+
+#         if user_detail is None:
+#             return Response({'error': 'User detail not found'}, status=status.HTTP_404_NOT_FOUND)
+#         print(user_detail)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
 
 def generate_tokens(user):
     """
@@ -27,8 +49,24 @@ def generate_tokens(user):
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }
+
+     # Query the Donor or Receiver model based on the user type
+    user_data = UserSerializer(user).data
+    if user.user_type == 'donor':
+        donor = Donor.objects.filter(user=user).first()
+        if donor:
+            user_data.update(DonorSerializer(donor).data)
+    elif user.user_type == 'receiver':
+        receiver = Receiver.objects.filter(user=user).first()
+        if receiver:
+            receiver_data = ReceiverSerializer(receiver).data
+            filtered_data = {k: v for k, v in receiver_data.items() if v is not None}
+            user_data.update(filtered_data)
+
     response_data = {
-        'username': UserSerializer(user).data['name'],
+        'username': user_data['name'],
+        'user_type': user_data['user_type'],
+        'userdata': user_data,  # include the user data in the response
         'token': token_data
     }
 

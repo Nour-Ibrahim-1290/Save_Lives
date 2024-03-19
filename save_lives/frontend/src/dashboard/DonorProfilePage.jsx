@@ -6,7 +6,7 @@ import "../style/fonts/font-awesome/css/font-awesome.css";
 import "../style/css/nivo-lightbox/nivo-lightbox.css";
 import "../style/css/nivo-lightbox/default.css";
 
-const ProfilePage = () => {
+const DonorProfile = () => {
   const [profileData, setProfileData] = useState({});
   const [editing, setEditing] = useState(false);
   const [editedData, setEditedData] = useState({});
@@ -126,4 +126,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default DonorProfile;

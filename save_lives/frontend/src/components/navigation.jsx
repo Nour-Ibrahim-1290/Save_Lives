@@ -62,16 +62,26 @@ export const Navigation = (props) => {
               </HashLink>
             </li>
             <li>
-              
-            <Link to="/login" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
-              Login
-            </Link>
-              
+              {localStorage.accessToken ? (
+                <Link to='/dashboard' className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+                  Login
+                </Link>
+              ) : (
+                <Link to="/login" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+                  Login
+                </Link>
+              )}
             </li>
             <li>
-              <Link to="/signstart" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
-                Join us
-              </Link>
+              {localStorage.accessToken ? (
+                <Link to='/dashboard' className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+                  Join us
+                </Link>
+              ) : (
+                <Link to="/signstart" className="page-scroll" style={{color: '#ff2222', fontWeight: '400'}}>
+                  Join us
+                </Link>
+              )}
             </li>
           </ul>
         </div>

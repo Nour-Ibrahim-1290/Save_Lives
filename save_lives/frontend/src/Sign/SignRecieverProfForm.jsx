@@ -177,7 +177,7 @@ export const SignRProfForm = (props) => {
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
-                <label htmlFor="workplace_name" className='form-label'>Enter your age:</label>
+                <label htmlFor="workplace_name" className='form-label'>Work Place Name:</label>
                 <input
                   type="text"
                   id="workplace_name"
@@ -190,7 +190,7 @@ export const SignRProfForm = (props) => {
                 <p className="help-block text-danger"></p>
               </div>
               <div className="form-group">
-                <label htmlFor="workplace_address" className='form-label'>Enter your age:</label>
+                <label htmlFor="workplace_address" className='form-label'>Work Place Address:</label>
                 <input
                   type="address"
                   id="workplace_address"

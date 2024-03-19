@@ -735,7 +735,7 @@ label {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25) !important;
   border-radius: 10px;
   margin-bottom: 10px;
-  color:  #ff0000;
+  color:  #666363;
 }
 
 .header h2 {
@@ -788,18 +788,37 @@ label {
 }
 
 
-#dashboard .sidebar li{
+#dashboard .sidebar li {
+  position: relative; /* Add this line */
   padding: 20px;
   width: 100%;
   margin-bottom: 20px;
   border-radius: 15px !important;
-  color: #ff2222;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.5);
+  overflow: hidden; /* Add this line */
 }
 
-#dashboard .sidebar li:hover{
-  background-color: #ff2222;
-  color: #f6f6f6;
+#dashboard .sidebar li::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background: #ff2222;
+  transition: width .3s;
+}
+
+#dashboard .sidebar li:hover {
+  color: #ff2222;
   padding: 20px;
+  font-size: 20px; /* Add this line */
+  border-bottom: 2px solid #ff2222; /* Add this line */
+}
+
+#dashboard .sidebar li:hover::after {
+  width: 100%;
 }
 
 #dasboard .side-link {
@@ -819,12 +838,28 @@ label {
     background-color: #f6f6f6;
 }
 
+/* Blood Donation Sections */
+
 .info-card {
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45) !important;
   border-radius: 15px !important;
   padding: 20px;
   width: 45vh;
-  background-color: #e7dfdf;
+  background-color: #fff;
+}
+
+.request-blood {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.request-blood-select{
+  width: 25%;
+  height: 30px;
+  margin-top: 1.5%;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 
@@ -832,27 +867,69 @@ label {
 
 .profile-page {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .profile-page h1 {
   margin-bottom: 20px;
+  font-weight: 600;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(128, 128, 128, 0.5);
 }
 
 .profile-page table {
-  width: 100%;
-  border-collapse: collapse;
+  margin: 10px;
+  width: 95%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #ff2222;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
 }
 
 .profile-page th,
 .profile-page td {
-  padding: 10px;
+  padding: 20px;
   border-bottom: 1px solid #ddd;
+  font-size: 20px !important;
+  width: 1%; 
 }
+
+
+/* .profile-page th:hover,
+.profile-page td:hover {
+  color: #ff2222; 
+  font-weight: bold;
+  font-size: 22px !important;
+} */
 
 .profile-page th {
   text-align: left;
 }
+
+
+.profile-edit-btn {
+  font-weight: 600;
+  border-radius: 10px !important;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.05);
+  white-space: normal;
+  background-color: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+}
+
+.profile-edit-btn:hover {
+  color: #ff0000;
+  background-color: #fff;
+  background-image: none;
+}
+
+
 
 @media (max-width: 768px) {
   #about img {

@@ -26,8 +26,13 @@ const sendLoginRequest = async (email, password) => {
     });
 
     // Store tokens in localStorage
+    console.log("Inside sendLoginRequest");
+    console.log(response.data);
     localStorage.setItem('name', response.data.username);
+    localStorage.setItem('userType', response.data.user_type);
+    localStorage.setItem('userData', JSON.stringify(response.data.userdata));
     localStorage.setItem('refreshToken', response.data.token.refresh);
+    console.log(response.data.userdata);
     localStorage.setItem('accessToken', response.data.token.access);
 
     return response.data; 
@@ -55,7 +60,6 @@ export const LoginForm = (props) => {
   const handleSubmit = async (e) => {
     console.log("Inside handleSubmit");
     e.preventDefault();
-    // const isValid = await validationSchema.isValid({ email, password });
     if (1) {
       try {
         const response = await sendLoginRequest(email, password);

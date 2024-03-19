@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 import InfoCard from './InfoCard';
 import Grid from './InfoCardGrid';
-import ProfilePage from './ProfilePage';
+import DonorProfile from './DonorProfilePage';
+import RecieverProfile from './RecieverProfilePage';
 
 
 export default function DashboardBase() {
@@ -13,10 +14,15 @@ export default function DashboardBase() {
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const username = localStorage.getItem('name');
+    const userType = localStorage.getItem('userType');
 
 
     const [selectedPage, setSelectedPage] = useState('Page1');
-    const Page1 = () => <div><ProfilePage/></div>;
+    const Page1 = () => (
+      <div>
+        {userType === 'donor' ? <DonorProfile /> : <RecieverProfile />}
+      </div>
+    );
     const Page2 = () => <Grid />;
 
     const handleSignOut = () => {
@@ -24,6 +30,8 @@ export default function DashboardBase() {
       localStorage.removeItem('refreshToken');
       localStorage.removeItem('accessToken');
       localStorage.removeItem('name');
+      localStorage.removeItem('userType');
+      localStorage.removeItem('userData');
     
       // Then navigate to the sign out page
       navigate('/');
