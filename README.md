@@ -46,3 +46,4 @@ First off, thank you for considering contributing to our project! Your contribut
 
 
 ## License
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT) - see the [LICENSE](LICENSE) file for details.
