@@ -193,7 +193,7 @@ class LoginView(APIView):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({'error': 'Invalid Username'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'Invalid Email'}, status=status.HTTP_401_UNAUTHORIZED)
         
         if user.check_password(password):
             response_data = generate_tokens(user)
