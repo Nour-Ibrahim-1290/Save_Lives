@@ -34,7 +34,6 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
 class User(AbstractBaseUser):
     USER_TYPE_CHOICES = (
         ('donor', 'donor'),
@@ -75,8 +74,6 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
-
-
 
 
 
