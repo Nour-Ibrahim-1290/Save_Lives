@@ -211,11 +211,7 @@ class UpdateView(APIView):
 
     def post(self, request):
         """Update a user profile."""
-        
-        try:
-            user = User.objects.get(email=request.data['email'])
-        except ObjectDoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        user = request.user
         
         user_serializer = UserSerializer(user, data=request.data, partial=True)
 
@@ -229,13 +225,13 @@ class UpdateDonorView(APIView):
     """Update Donor Profile."""
     def post(self, request):
         """Update a donor profile."""
+        user = request.user
         
         try:
-            user = User.objects.get(email=request.data['email'])
-        except ObjectDoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        donor = Donor.objects.get(user=user)
+            donor = Donor.objects.get(user=user)
+        except Donor.DoesNotExist:
+            return Response({"error": "User is not a donor"}, status=status.HTTP_400_BAD_REQUEST)
+
         donor_serializer = DonorSerializer(donor, data=request.data, partial=True)
 
         if donor_serializer.is_valid():
@@ -248,13 +244,13 @@ class UpdateReceiverView(APIView):
     """Update Receiver Profile."""
     def post(self, request):
         """Update a receiver profile."""
+        user = request.user
         
         try:
-            user = User.objects.get(email=request.data['email'])
-        except ObjectDoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        receiver = Receiver.objects.get(user=user)
+            receiver = Receiver.objects.get(user=user)
+        except Receiver.DoesNotExist:
+            return Response({"error": "User is not a receiver"}, status=status.HTTP_400_BAD_REQUEST)
+
         receiver_serializer = ReceiverSerializer(receiver, data=request.data, partial=True)
 
         if receiver_serializer.is_valid():
