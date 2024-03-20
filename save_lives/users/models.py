@@ -1,8 +1,9 @@
+from enum import unique
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, name, email, password=None, age=None, phone=None, user_type=None):
+    def create_user(self, name, email, password=None, age=None, phone=None, user_type=None, is_admin=False):
         if not name:
             raise ValueError('Users must have a name')
         
@@ -16,15 +17,17 @@ class MyUserManager(BaseUserManager):
             age=age,
             phone=phone,
             user_type=user_type,
+            is_admin=is_admin
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, name, password):
+    def create_superuser(self, name, email, password):
         user = self.create_user(
-            name,
+            name=name,
+            email=email,
             password=password,
         )
         user.is_admin = True
@@ -43,7 +46,7 @@ class User(AbstractBaseUser):
         ('completed', 'Completed'),
     )
 
-    name = models.CharField(max_length=255, null=False)
+    name = models.CharField(max_length=255, unique=True, null=False)
     email = models.EmailField(max_length=255, unique=True, null=False)
     password = models.CharField(max_length=255, null=False)
     country = models.CharField(max_length=255, null=True, blank=True)
@@ -53,11 +56,12 @@ class User(AbstractBaseUser):
     phone = models.CharField(max_length=20, null=True, blank=True)
     user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, null=False)
     account_state = models.CharField(max_length=255, choices=ACCOUNT_STATE_CHOICES, default='initial')
+    is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
     USERNAME_FIELD = 'name'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.name
