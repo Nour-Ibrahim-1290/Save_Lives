@@ -132,6 +132,8 @@ class Donor(models.Model):
     diabetic = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
     pp = models.CharField(max_length=7, choices=YES_NO_CHOICES, null=False, default='unknown')
 
+    def __str__(self):
+        return self.user.name
 
 # Reciever details for both Medical Professional and Patients or their family
 class Receiver(models.Model):
@@ -208,3 +210,6 @@ class Receiver(models.Model):
     blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=True, blank=True)
     permanent_cond = models.CharField(max_length=7, choices=YES_NO_TEMP_CHOICES, null=True, blank=True)
     add_info = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user.name
