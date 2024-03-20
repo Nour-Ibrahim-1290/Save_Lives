@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
 
 from ..models import User, Donor, Receiver
 from .serializers import UserSerializer, DonorSerializer, ReceiverSerializer
@@ -9,7 +10,9 @@ from .serializers import UserSerializer, DonorSerializer, ReceiverSerializer
 
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
+
 
 
 
@@ -200,3 +203,62 @@ class LoginView(APIView):
             return Response(response_data, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Invalid Password'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class UpdateView(APIView):
+    """Update User Profile."""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Update a user profile."""
+        
+        try:
+            user = User.objects.get(email=request.data['email'])
+        except ObjectDoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        user_serializer = UserSerializer(user, data=request.data, partial=True)
+
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateDonorView(APIView):
+    """Update Donor Profile."""
+    def post(self, request):
+        """Update a donor profile."""
+        
+        try:
+            user = User.objects.get(email=request.data['email'])
+        except ObjectDoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        donor = Donor.objects.get(user=user)
+        donor_serializer = DonorSerializer(donor, data=request.data, partial=True)
+
+        if donor_serializer.is_valid():
+            donor_serializer.save()
+            return Response(donor_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(donor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateReceiverView(APIView):
+    """Update Receiver Profile."""
+    def post(self, request):
+        """Update a receiver profile."""
+        
+        try:
+            user = User.objects.get(email=request.data['email'])
+        except ObjectDoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        receiver = Receiver.objects.get(user=user)
+        receiver_serializer = ReceiverSerializer(receiver, data=request.data, partial=True)
+
+        if receiver_serializer.is_valid():
+            receiver_serializer.save()
+            return Response(receiver_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(receiver_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
