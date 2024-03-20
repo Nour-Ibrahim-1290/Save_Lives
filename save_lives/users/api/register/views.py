@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from ..serializers import UserSerializer, DonorSerializer, ReceiverSerializer
 from ...models import User
-from .views import generate_tokens
+from ..utils import generate_tokens
 
 
 # Modified User View (current one)
