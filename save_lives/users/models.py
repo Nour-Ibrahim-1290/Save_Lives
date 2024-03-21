@@ -29,8 +29,9 @@ class MyUserManager(BaseUserManager):
             name=name,
             email=email,
             password=password,
+            is_admin=True,
+            is_superuser=True
         )
-        user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -56,6 +57,7 @@ class User(AbstractBaseUser):
     user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, null=False)
     account_state = models.CharField(max_length=255, choices=ACCOUNT_STATE_CHOICES, default='initial')
     is_admin = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = MyUserManager()
 
