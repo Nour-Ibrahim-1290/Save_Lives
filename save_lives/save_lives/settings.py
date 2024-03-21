@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'save_lives',
     'users',
-    'contact'
+    'contact',
+    'asks'
 ]
 
 # Settings for auth backends
