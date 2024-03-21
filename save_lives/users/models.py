@@ -45,7 +45,7 @@ class User(AbstractBaseUser):
         ('completed', 'Completed'),
     )
 
-    name = models.CharField(max_length=255, unique=True, null=False)
+    name = models.CharField(max_length=255, null=False)
     email = models.EmailField(max_length=255, unique=True, null=False)
     password = models.CharField(max_length=255, null=False)
     country = models.CharField(max_length=255, null=True, blank=True)
@@ -59,8 +59,8 @@ class User(AbstractBaseUser):
 
     objects = MyUserManager()
 
-    USERNAME_FIELD = 'name'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name']
 
     def __str__(self):
         return self.name
