@@ -17,7 +17,7 @@ class MyUserManager(BaseUserManager):
             age=age,
             phone=phone,
             user_type=user_type,
-            is_admin=is_admin
+            is_admin=is_admin,
         )
 
         user.set_password(password)
@@ -29,9 +29,8 @@ class MyUserManager(BaseUserManager):
             name=name,
             email=email,
             password=password,
-            is_admin=True,
-            is_superuser=True
         )
+        self.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -42,8 +41,8 @@ class User(AbstractBaseUser):
     )
 
     ACCOUNT_STATE_CHOICES = (
-        ('initial', 'Initial'),
-        ('completed', 'Completed'),
+        ('initial', 'initial'),
+        ('completed', 'completed'),
     )
 
     name = models.CharField(max_length=255, null=False)
@@ -57,7 +56,6 @@ class User(AbstractBaseUser):
     user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, null=False)
     account_state = models.CharField(max_length=255, choices=ACCOUNT_STATE_CHOICES, default='initial')
     is_admin = models.BooleanField(default=False)
-
 
     objects = MyUserManager()
 
