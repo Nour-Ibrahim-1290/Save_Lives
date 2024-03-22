@@ -28,7 +28,7 @@ class Filter(APIView):
         user = request.user
         if not user.user_type == 'receiver':
             # User is not a receiver instance
-            return Response({'error': 'User is not a receiver'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'User is not a receiver'}, status=status.HTTP_401_UNAUTHORIZED)
         
         blood_type = request.data.get('blood_type')
 
