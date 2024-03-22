@@ -57,7 +57,7 @@ class User(AbstractBaseUser):
     user_type = models.CharField(max_length=255, choices=USER_TYPE_CHOICES, null=False)
     account_state = models.CharField(max_length=255, choices=ACCOUNT_STATE_CHOICES, default='initial')
     is_admin = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+
 
     objects = MyUserManager()
 
