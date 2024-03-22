@@ -3,4 +3,5 @@ from .filter.views import Filter
 
 urlpatterns = [
     path('filter/', include('asks.api.filter.urls')),
+    path('send-request/', include('asks.api.sendreq.urls')),
 ]
