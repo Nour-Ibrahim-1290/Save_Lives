@@ -20,6 +20,7 @@ class Ask(models.Model):
     receiver = models.OneToOneField(Receiver, on_delete=models.CASCADE)
     donor = models.OneToOneField(Donor, on_delete=models.CASCADE)
     needed_blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=False, default='unknown')
+    proposed_blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=False, default='unknown')
     donor_approval = models.BooleanField(default=False)
 
     def __str__(self):
