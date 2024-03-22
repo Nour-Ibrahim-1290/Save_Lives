@@ -17,8 +17,8 @@ class Ask(models.Model):
     ('unknown', 'Unknown'),
 ]
 
-    receiver = models.OneToOneField(Receiver, on_delete=models.CASCADE)
-    donor = models.OneToOneField(Donor, on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Receiver, on_delete=models.CASCADE)
+    donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
     needed_blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=False, default='unknown')
     proposed_blood_type = models.CharField(max_length=7, choices=BLOOD_TYPE_CHOICES, null=False, default='unknown')
     donor_approval = models.BooleanField(default=False)
