@@ -33,7 +33,7 @@ class UpdateDonorView(APIView):
         try:
             donor = Donor.objects.get(user=user)
         except Donor.DoesNotExist:
-            return Response({"error": "User is not a donor"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "User is not a donor"}, status=status.HTTP_401_UNAUTHORIZED)
 
         donor_serializer = DonorSerializer(donor, data=request.data, partial=True)
 
@@ -52,7 +52,7 @@ class UpdateReceiverView(APIView):
         try:
             receiver = Receiver.objects.get(user=user)
         except Receiver.DoesNotExist:
-            return Response({"error": "User is not a receiver"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "User is not a receiver"}, status=status.HTTP_401_UNAUTHORIZED)
 
         receiver_serializer = ReceiverSerializer(receiver, data=request.data, partial=True)
 
