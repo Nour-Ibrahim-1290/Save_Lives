@@ -24,5 +24,4 @@ class Ask(models.Model):
     donor_approval = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.receiver.name} asks from {self.donor.name} \
-            {self.needed_blood_type} type, donor approval: {self.donor_approval}'
+        return f'{self.proposed_blood_type} needs {self.needed_blood_type}'
