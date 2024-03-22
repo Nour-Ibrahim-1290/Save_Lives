@@ -17,9 +17,12 @@ class SendRequest(APIView):
             return Response({'error': 'User is not a receiver'}, status=status.HTTP_401_UNAUTHORIZED)
         
         # Get the data
-        donor_id = request.data['donor_id']
-        needed_blood_type = request.data['needed_blood_type']
-        proposed_blood_type = request.data['proposed_blood_type']
+        try:
+            donor_id = request.data['donor_id']
+            needed_blood_type = request.data['needed_blood_type']
+            proposed_blood_type = request.data['proposed_blood_type']
+        except KeyError:
+            return Response({'error': 'Invalid request data'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             donor = Donor.objects.get(id=donor_id)
