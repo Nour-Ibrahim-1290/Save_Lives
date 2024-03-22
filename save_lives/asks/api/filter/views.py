@@ -3,8 +3,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 
-from users.models import Receiver, Donor
-from users.api.serializers import DonorSerializer
+from users.models import Donor, User
+from users.api.serializers import DonorSerializer, UserSerializer
 
 from rest_framework.response import Response
 
@@ -37,6 +37,19 @@ class Filter(APIView):
         if not donors:
             return Response({'error': 'No donors available'}, status=status.HTTP_404_NOT_FOUND)
         
-        serializer = DonorSerializer(donors, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        donor_serializer = DonorSerializer(donors, many=True)
+        donor_data = donor_serializer.data
 
+        response_data = {}
+
+        # loop on every donor available and append its users info to it
+        for i, donor in enumerate(donor_data):
+            user_id = donor['user']
+            user = User.objects.get(id=user_id)  # Fetch the User object using the foreign key value
+            user_data = UserSerializer(user).data
+            response_data[i] = {
+                'user': user_data,
+                'donor': donor
+            }
+
+        return Response(response_data, status=status.HTTP_200_OK)
