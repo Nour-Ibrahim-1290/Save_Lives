@@ -93,18 +93,18 @@ class RegisterView(APIView):
                     response_data = generate_tokens(user)
                     return Response(response_data, status=status.HTTP_201_CREATED)
                 else:
-                    user.delete()  # Delete the user if donor data is invalid
+                    user.delete() 
                     return Response(donor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
             elif user.user_type == 'receiver':
-                receiver_data = {**request.data, "user": user.id}  # Add user id to the request data
+                receiver_data = {**request.data, "user": user.id}  
                 receiver_serializer = ReceiverSerializer(data=receiver_data)
                 if receiver_serializer.is_valid():
                     receiver_serializer.save()
                     response_data = generate_tokens(user)
                     return Response(response_data, status=status.HTTP_201_CREATED)
                 else:
-                    user.delete()  # Delete the user if receiver data is invalid
+                    user.delete() 
                     return Response(receiver_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         else:
