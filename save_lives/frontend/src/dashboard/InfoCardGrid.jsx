@@ -1,55 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-grid-system';
 import Select from 'react-select';
 import Pagination from "react-js-pagination";
-
+import axios from 'axios';
 
 import Card from './InfoCard';
 
-
-  const products = [
-    "Product 1",
-    "Product 2",
-    "Product 3",
-    "Product 4",
-    "Product 5",
-    "Product 6",
-    "Product 7",
-    "Product 8",
-    "Product 9",
-    "Product 10",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 11",
-    "Product 12",
-  ];
-
-
 const Grid = () => {
   const [activePage, setActivePage] = useState(1);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  
   const productsPerPage = 6; // Display 9 products per page (3 rows of 3)
   const pagesVisited = (activePage - 1) * productsPerPage;
   const displayedProducts = products.slice(pagesVisited, pagesVisited + productsPerPage);
   const pageCount = Math.ceil(products.length / productsPerPage);
 
-
   const handlePageChange = (pageNumber) => {
     console.log(`active page is ${pageNumber}`);
     setActivePage(pageNumber);
   };
-
 
   const chunkArray = (myArray, chunk_size) => {
     let results = [];
@@ -58,7 +28,6 @@ const Grid = () => {
     }
     return results;
   };
-
 
   const options = [
     { value: 'O-', label: 'O-' },
@@ -83,12 +52,27 @@ const Grid = () => {
     }),
   };
 
+  const handleSearchClick = async () => {
+    if (selectedOption) {
+      try {
+        const response = await axios.get(`https://your-api-url.com/search?bloodType=${selectedOption.value}`);
+        // replace 'https://your-api-url.com/search' with your actual API URL
+        // replace 'bloodType' with the actual query parameter name expected by your API
+
+        // update your products state with the data received from the API
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Failed to fetch data', error);
+      }
+    }
+  };
 
   return (
     <Container>
       <div className="request-blood">
         <h3>Which Blood type you need donation for?</h3>
-        <Select className='request-blood-select' options={options} styles={customStyles} />
+        <Select className='request-blood-select' options={options} styles={customStyles} onChange={setSelectedOption} />
+        <button className="request-search-btn" onClick={handleSearchClick}>Search</button>
       </div>
       {chunkArray(displayedProducts, 3).map((productRow, rowIndex) => (
         <Row key={rowIndex}>
