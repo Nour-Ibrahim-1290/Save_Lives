@@ -951,6 +951,10 @@ label {
   box-shadow: 10px 10px 10px rgba(255, 0, 0, 0.2);
 }
 
+.user-info-card {
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;

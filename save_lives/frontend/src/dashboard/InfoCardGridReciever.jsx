@@ -4,7 +4,7 @@ import Select from 'react-select';
 import Pagination from "react-js-pagination";
 import axios from 'axios';
 
-import Card from './InfoCard';
+import InfoCard from './InfoCard';
 
 const GridReciever = () => {
   const [activePage, setActivePage] = useState(1);
@@ -54,11 +54,12 @@ const GridReciever = () => {
 
   const handleSearchClick = async () => {
     console.log('handleSearchClick');
-    console.log(selectedOption);
+    console.log(selectedOption.value);
     if (selectedOption) {
+      console.log('Inside Selected Option');
       try {
         const accessToken = localStorage.getItem('accessToken');
-        const response = await axios.post('http://localhost:8000/asks/filter/', {
+        const response = await axios.post('http://127.0.0.1:8000/asks/filter/', {
           blood_type: selectedOption.value
         }, {
           headers: {
@@ -68,8 +69,12 @@ const GridReciever = () => {
         console.log('Respond of Filter....');
         console.log(response);
         console.log('Response Data:');
-        console.log(response.data);
-        setProducts(response.data);
+        // console.log(response.data);
+        
+        // Convert the response data from an object to an array
+        const products = Object.values(response.data);
+        console.log(products[0].user);
+        setProducts(products);
       } catch (error) {
         console.error('Failed to fetch data', error);
       }
@@ -87,7 +92,7 @@ const GridReciever = () => {
         <Row key={rowIndex}>
           {productRow.map((product, index) => (
             <Col lg={3} key={index} style={{margin: '35px'}}>
-              <Card />
+              <InfoCard user={products[index]}/>
             </Col>
           ))}
         </Row>
