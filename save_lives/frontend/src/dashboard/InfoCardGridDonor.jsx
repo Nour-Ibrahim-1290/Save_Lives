@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import Card from './InfoCard';
 
-const Grid = () => {
+const GridDonor = () => {
   const [activePage, setActivePage] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const [products, setProducts] = useState([]);
@@ -95,4 +95,4 @@ const Grid = () => {
     </Container>
   );
 }
-export default Grid;
+export default GridDonor;

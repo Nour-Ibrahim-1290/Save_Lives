@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 
-import InfoCard from './InfoCard';
-import Grid from './InfoCardGrid';
+//import InfoCard from './InfoCard';
+//import Grid from './InfoCardGrid';
+import GridReciever from './InfoCardGridReciever';
+import GridDonor from './InfoCardGridDonor';
 import DonorProfile from './DonorProfilePage';
 import RecieverProfile from './RecieverProfilePage';
 
@@ -23,7 +25,7 @@ export default function DashboardBase() {
         {userType === 'donor' ? <DonorProfile /> : <RecieverProfile />}
       </div>
     );
-    const Page2 = () => <Grid />;
+    const Page2 = () => userType === 'donor' ? <GridDonor /> : <GridReciever />;
 
     const handleSignOut = () => {
       // Perform your actions here

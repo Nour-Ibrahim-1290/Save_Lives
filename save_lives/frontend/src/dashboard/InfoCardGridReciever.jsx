@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import Card from './InfoCard';
 
-const Grid = () => {
+const GridReciever = () => {
   const [activePage, setActivePage] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
   const [products, setProducts] = useState([]);
@@ -53,13 +53,22 @@ const Grid = () => {
   };
 
   const handleSearchClick = async () => {
+    console.log('handleSearchClick');
+    console.log(selectedOption);
     if (selectedOption) {
       try {
-        const response = await axios.get(`https://your-api-url.com/search?bloodType=${selectedOption.value}`);
-        // replace 'https://your-api-url.com/search' with your actual API URL
-        // replace 'bloodType' with the actual query parameter name expected by your API
-
-        // update your products state with the data received from the API
+        const accessToken = localStorage.getItem('accessToken');
+        const response = await axios.post('http://localhost:8000/asks/filter/', {
+          blood_type: selectedOption.value
+        }, {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          }
+        });
+        console.log('Respond of Filter....');
+        console.log(response);
+        console.log('Response Data:');
+        console.log(response.data);
         setProducts(response.data);
       } catch (error) {
         console.error('Failed to fetch data', error);
@@ -95,4 +104,4 @@ const Grid = () => {
     </Container>
   );
 }
-export default Grid;
+export default GridReciever;
